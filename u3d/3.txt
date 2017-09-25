@@ -1,0 +1,108 @@
+冒泡排序
+用第一个下标的数跟后面所有元素比较，出现大（小）于它的就互换值再跟下一个下标的元素比较，再从下标二循环下去直到倒数第二个下标为止。
+	static void Sort冒泡排序() { 
+            int[] arr={71,3,12,35,130,48};
+            for (var j = 0; j < arr.Length - 1; j++) { 
+                for (var i = 0; i < arr.Length - 1-j; i++)
+                {
+                    if (arr[i] > arr[i + 1])
+                    {
+                        int t = arr[i];
+                        arr[i] = arr[i + 1];
+                        arr[i + 1] = t;
+                    }
+                }
+           }
+        }
+
+快速排序
+采用递归的方式对待排序的数列进行若干次的操作,每次操作使得被操作的数列部分以某个元素为分界值分成两部分,一部分小于该分界值,另一部分大于该分界值.该分界值一般被称为"枢轴". 一般先以左边第一个数作为分界值，将数列按该分界值分成左右两部分，左边部分小于该分界值，右边部分大于该分界值，然后再对左右两部分做重复的操作，直到最后完成排序。
+  public class QuickSortClass
+  {
+    public int Division(List<int> list, int left, int right)
+    {
+      int baseNum = list[left];
+      while (left < right)
+      {
+        while (left < right && list[right] >= baseNum)
+          right = right - 1;
+        list[left] = list[right];
+        while (left < right && list[left] <= baseNum)
+          left = left + 1;
+        list[right] = list[left];
+      }
+      list[left] = baseNum;
+      return left;
+    }
+ 
+    public void QuickSort(List<int> list, int left, int right)
+    {
+      if (left < right)
+      {
+        int i = Division(list, left, right);
+        QuickSort(list, left, i - 1);
+        QuickSort(list, i + 1, right);
+      }
+    }
+  }
+
+选择排序
+首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。
+ static void Sort选择排序() {
+            int[] arr = { 12,34,56,1,2,4,0};
+            for (var i = 0; i < arr.Length - 1; i++) {
+                var min = i;//保存最小值的下标；
+                for (var j = i + 1; j < arr.Length; j++) {
+                    if (arr[min] > arr[j]) {
+                        min = j;
+                    }
+                }
+                //需要交换位置
+                var t = arr[i];
+                arr[i] = arr[min];
+                arr[min] = t;
+            }
+        }
+
+插入排序
+待排序列里的元素一个一个的与已排列好的元素进行比较，将其插入到已排列好的序列中，直到没有待排列的元素。
+        public static void sort插入排序()
+        {
+            int[] arr = { 23, 45, 23, 24, 45, 3, 23, 43, 454 };
+            for (var i = 1; i < arr.Length; i++)
+            {
+                int inserval = arr[i];
+                int index = i - 1;
+                while (index >= 0 && inserval < arr[index])
+                {
+                    arr[index + 1] = arr[index];
+                    index--;
+                }
+                arr[index + 1] = inserval;
+            }
+        }
+
+二分法插入排序
+在插入第i个元素时，对前面的0～i-1元素进行折半，先跟他们中间的那个元素比，如果小，则对前半再进行折半，否则对后半进行折半，直到left<right，然后再把第i个元素前1位与目标位置之间的所有元素后移，再把第i个元素放在目标位置上。
+public void binaryInsertionSort(int[] array) {
+        printArray("原数组：", array);
+        for (int i = 1; i < array.length; i++) {
+            int temp = array[i];
+            int right = i - 1;
+            int left = 0;
+            int mid;
+            while (left <= right) {
+                mid = (left + right) / 2;
+                if (array[mid] > temp) {
+                    right = mid - 1;
+                } else if (array[mid] < temp) {
+                    left = mid + 1;
+                }
+            }
+            for (int j = i; j > left; j--) {
+                array[j] = array[j - 1];
+            }
+            array[left] = temp;
+            printArray("第" + time++ + "次循环排序结果: ", array);
+        }
+    }
